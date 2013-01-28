@@ -1,1 +1,8 @@
-console.log('This would be the main JS file.');
+jQuery(function($){
+
+  $(".slolder").slolder({
+    interval: 3000,
+    transitionTime: 800
+  });
+
+});
