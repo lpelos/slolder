@@ -32,22 +32,23 @@
           <a href="https://github.com/lpelos/slolder" id="view-on-github" class="button"><span>View on GitHub</span></a>
         </section>
 
+        
+        <h3>Slides, LOL!</h3>
+        <ul class="slolder">
+          <li><img src="images/slide1.jpg" /></li>
+          <li><img src="images/slide2.jpg" /></li>
+          <li><img src="images/slide3.jpg" /></li>
+        </ul>
+
         <hr>
 
-        <section id="main_content">
-          <h3>Slides, LOL!</h3>
-
-<ul class="slolder">
-  <li><img src="images/slide1.jpg" /></li>
-  <li><img src="images/slide2.jpg" /></li>
-  <li><img src="images/slide3.jpg" /></li>
-</ul>
+<section id="main_content">
 
 <h3>Requirements</h3>
-<p>JQuery, any version should do, really (at least works fine with jQuery v1.7.2+).</p>
+<p>JQuery v1.6+</p>
 
 <h3>Installing</h3>
-<p>There is no need for installing. Just download the damn thing and add it to your HTML with something like this:</p>
+<p>Installing? Ain't nobody has time fo that. Just download the damn thing and add it to your HTML with something like this:</p>
 
 <pre><code>&lt;script src="jquery-slolder.js"&gt;&lt;/script&gt;</code></pre>
 
@@ -72,41 +73,48 @@
 <pre><code>$(".foo").slolder();</code></pre>
 
 <h3>Options</h3>
-<p>You can choose your own interval between transitions and the time each transition effect takes with something like this:</p>
+
+<h4>interval</h4>
+<p>Time between each transition, in miliseconds. Default: 5000</p>
 
 <pre><code>$(".foo").slolder({
-  interval: 2000,  // default: 5000
-  transitionTime: 500  // default: 1000
+    interval: 2000
 });
 </code></pre>
 
-<!--
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<h4>transitionTime</h4>
+<p>Time taken by each transition animation, in miliseconds. Default: 1000</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<pre><code>$(".foo").slolder({
+    transitionTime: 500
+});
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<h4>transitionFunction</h4>
+<p>Animation function that takes place in each transition. Accespts a string and a function. Default: "fadeDown"</p>
 
-<h3>Designer Templates</h3>
+<h5>string</h5>
+<p>By now, the only two string accepted are: "fadeDown" or "slideUp"</p>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<pre><code>$(".foo").slolder({
+    transitionFunction: "slideUp"
+});
+</code></pre>
 
-<h3>Rather Drive Stick?</h3>
+<h5>function</h5>
+<p>The function must receive <code>slide</code> as and argument, which will be the receiver of the animation, and <code>return</code> its result, otherwise it won't work. For instance:</p>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<pre><code>$(".foo").slolder({
+    transitionFunction: function(slide){
+        return slide.animate({
+            height: "0",
+            marginLeft: "-2000px",
+            opacity: "0"
+        }, 500)
+    }
+});
+</code></pre>
 
-<h3>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-
--->
         </section>
 
         <footer>
