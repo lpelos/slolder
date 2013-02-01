@@ -1,54 +1,88 @@
 jQuery.fn.slolder = function(options){
-  if(options === undefined){ options = {} }
-  var slides = $(this).children();
-  var interval = options.interval || 5000;
-  var transitionTime = options.transitionTime || 1000;
-  if (transitionTime >= interval) {
-    transitionTime = interval * 0.9;
-  }
 
-  // CSS styling
-  $(this).css("position", "relative");
-  if( $(this).css("height") === "0px" ){
-    $(this).css("height", "100%");
+  defaults = {
+    interval: 5000,
+    transitionTime: 1000
   }
-  if( $(this).css("width") === "0px" ){
-    $(this).css("width", "100%");
-  }
-  slides.css({
-    "display": "block",
+  options = $.extend(defaults, options);
+
+  // Variable setting
+  var self = this;
+  var container = $(this);
+  var slides = container.children();
+  var defaultSlideStyle = {
+    "display": "none",
     "height": "100%",
     "left": "0",
+    "margin": "0",
+    "opacity": "1",
     "position": "absolute",
     "top": "0",
     "width": "100%",
     "z-index": "-1"
-  });
+  }
 
-  // Slolding
-  slides.last().fadeIn(transitionTime, function(){
+  // CSS styling
+  container.css("position", "relative");
+  if( container.css("height") === "0px" ){
+    container.css("height", "100%");
+  }
+  if( container.css("width") === "0px" ){
+    container.css("width", "100%");
+  }
+  slides.css(defaultSlideStyle);
+
+  // Default transition function
+  self.defaultTransitionFunction = function(slide) {
+    return slide.fadeOut(options.transitionTime);
+  }
+
+  // Setting transition function
+  self.transitionFunction = (function() {
+    switch (typeof options.transitionFunction) {
+
+      // if it is a custom function received by the user, use it
+      case "function":
+        return options.transitionFunction;
+
+      // if it is a string, verify if it is valid on and set it as required
+      case "string":
+        switch (options.transitionFunction) {
+          case "fadeDown":
+            return self.defaultTransitionFunction;
+          case "slideUp":
+            return function(slide) {
+              return slide.slideUp(options.transitionTime);
+            }
+          case "horizontalSlide":
+            return console.log("horizontalSlide");
+          default:
+            throw "There is no transitionFunction named '" + options.transitionFunction + "'. \n Try using a custom function instead.";
+        }
+        break;
+
+      // if it is undefined or invalid type, use defaultTransitionFunction
+      default:
+        return self.defaultTransitionFunction;
+    }
+  })();
+
+  // Turning the Sloldering on
+  slides.last().fadeIn(options.transitionTime, function(){
     slides.show();
 
+    // Start the engines: loop!
     setInterval(function(){
-      slides.last().fadeOut(transitionTime, function(){
-        slides.first().before($(this));
-        $(this).show();
-
-        // reordering slides array
-        var _i, _j, _len;
-        for ( _i = 0, _len = slides.length; _i <= _len; _i++ ) {
-          _j = _len - _i;
-
-          if(_j > 0) {
-            slides[_j] = slides[_j - 1];
-          } else {
-            slides[0] = slides[_len];
-            slides.splice(_len);
-          }
-        }
-
+      // calls chosen or default transition function
+      self.transitionFunction(slides.last()).promise().done(function(){
+        // after transitionFunction is done, call reorganize slides
+        slides.last().insertBefore(slides.first()).css(defaultSlideStyle).show();
+        slides = container.children();
       });
-    }, interval);
+    }, options.interval);
+
   });
+
+  // returns the receiver jquery object
   return this;
 }
