@@ -1,15 +1,16 @@
 # jQuery-slolder
 
 A really simple jquery lol slider.
-[Demo](http://lpelos.github.com/slolder)
+
+Example and Documentation can be found in [Slolder Github page](http://lpelos.github.com/slolder)
 
 ## Requirements
 
-JQuery, any version should do, really (at least works fine with jQuery v1.7.2).
+JQuery v1.6+
 
 ## Installing
 
-There is no need for installing. Just download the damn thing and add 
+Installing? Ain't nobody has time fo that. Just download the damn thing and add 
 it to your HTML with something like this:
 
 ```html
@@ -50,12 +51,57 @@ $(".foo").slolder();
 
 ## Options
 
-You can choose your own interval between transitions and the time each transition 
-effect takes with something like this:
+### interval
+Time between each transition, in miliseconds. Default: 5000
 
 ```javascript
 $(".foo").slolder({
-   interval: 2000, 	// default: 5000
-   transitionTime: 500 	// default: 1000
+   interval: 2000
+});
+```
+
+### transitionTime
+Time taken by each transition animation, in miliseconds. Default: 1000
+
+```javascript
+$(".foo").slolder({
+   transitionTime: 500
+});
+```
+
+### transitionFunction
+Animation function that takes place in each transition. Accespts a string and a function. Default: "fadeDown"
+
+#### string
+By now, the only two string accepted are: "fadeDown" or "slideUp"
+
+```javascript
+$(".foo").slolder({
+   transitionFunction: "slideUp"
+});
+```
+
+#### function
+The function must receive ```slide``` as and argument, which will be the receiver of the animation, and ```return``` its result, otherwise it won't work. For instance:
+
+```javascript
+$(".foo").slolder({
+   transitionFunction: function(slide){
+      return slide.animate({
+         height: "0",
+         marginLeft: "-2000px",
+         opacity: "0"
+      }, 500)
+   }
+});
+```
+
+### All together
+
+```javascript
+$(".foo").slolder({
+   interval: 3000,
+   transitionTime: 600,
+   transitionFunction: "slideUp"
 });
 ```
