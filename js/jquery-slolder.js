@@ -48,14 +48,12 @@ jQuery.fn.slolder = function(options){
       // if it is a string, verify if it is valid on and set it as required
       case "string":
         switch (options.transitionFunction) {
-          case "fadeDown":
+          case "fadeOut":
             return self.defaultTransitionFunction;
           case "slideUp":
             return function(slide) {
               return slide.slideUp(options.transitionTime);
             }
-          case "horizontalSlide":
-            return console.log("horizontalSlide");
           default:
             throw "There is no transitionFunction named '" + options.transitionFunction + "'. \n Try using a custom function instead.";
         }
