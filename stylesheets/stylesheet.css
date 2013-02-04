@@ -1,10 +1,26 @@
+li {
+  list-style-type: none !important;
+  padding: 0 !important;
+}
+
+#transaction_function_slolders .example {
+  float: left;
+  height: 190px;
+  width: 47.5%;
+  margin-bottom: 30px;
+  margin-left: 5%;
+}
+
+#transaction_function_slolders .fade-out.example {
+  margin-left: 0;
+}
+
+.custom-function.example {
+  
+}
+
 .slolder {
   height: 348px;
   width: 100%;
   z-index: 0;
-}
-
-.slolder li {
-  list-style-type: none;
-  padding: 0;
 }
