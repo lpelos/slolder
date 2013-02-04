@@ -73,7 +73,7 @@ $(".foo").slolder({
 Animation function that takes place in each transition. Accespts a string and a function. Default: "fadeDown"
 
 #### string
-By now, the only two string accepted are: "fadeDown" or "slideUp"
+For now, the only two string accepted are: "fadeDown" or "slideUp"
 
 ```javascript
 $(".foo").slolder({
@@ -82,7 +82,7 @@ $(".foo").slolder({
 ```
 
 #### function
-The function must receive ```slide``` as and argument, which will be the receiver of the animation, and ```return``` its result, otherwise it won't work. For instance:
+The function must receive ```slide``` as argument, which will be the receiver of the animation, and ```return``` its result, otherwise it won't work. For instance:
 
 ```javascript
 $(".foo").slolder({
